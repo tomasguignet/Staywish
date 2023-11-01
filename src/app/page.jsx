@@ -6,7 +6,7 @@ import React from 'react'
 function Home() {
   return (
     <>
-      <section className='bg-zinc-950 '>
+      <section className='bg-zinc-950 pb-3'>
         <NavBar/>
         <SearchBar/>
         <HomePhoto/>
