@@ -1,14 +1,16 @@
 import "../styles/globals.css";
+import {ReduxProvider} from "../redux/provider"
 
 export const metadata = {
-    title: "My next app",
+    title: "Staywish",
 }
 
 function RootLayout({children}) {
+  
   return (
     <html>
         <body>
-            {children}
+            <ReduxProvider>{children}</ReduxProvider>
         </body>
     </html>
   )
