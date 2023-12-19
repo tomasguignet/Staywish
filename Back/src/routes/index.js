@@ -11,3 +11,7 @@ const commentRouter = require("./commentRouter");
 router.use("/user", userRouter);
 router.use("/home", homeRouter);
 router.use("/reservation", reservationRouter);
+router.use("/comment", commentRouter);
+router.use("/admin", adminRouter);
+
+module.exports = router;

@@ -1,6 +1,6 @@
 const { Comment, Reservation, Home, User } = require("../db");
 
-export const getComments = async () => {
+const getComments = async () => {
   const comments = await Comment.findAll({
     include: [
       { model: User, attributes: ["id", "name", "surname", "image"] },
@@ -11,7 +11,7 @@ export const getComments = async () => {
   return comments;
 };
 
-export const getUserComments = async (userId) => {
+const getUserComments = async (userId) => {
   const comments = await Comment.findAll(
     {
       include: [
@@ -25,7 +25,7 @@ export const getUserComments = async (userId) => {
   return comments;
 };
 
-export const getHomeComments = async (homeId) => {
+const getHomeComments = async (homeId) => {
   const comments = await Comment.findAll(
     {
       include: [
@@ -39,7 +39,7 @@ export const getHomeComments = async (homeId) => {
   return comments;
 };
 
-export const getHostComments = async (hostId) => {
+const getHostComments = async (hostId) => {
   const comments = await Comment.findAll(
     {
       include: [
@@ -57,7 +57,7 @@ export const getHostComments = async (hostId) => {
   return comments;
 };
 
-export const getHostRating = async (hostId) => {
+const getHostRating = async (hostId) => {
   const { count, rows } = await Comment.findAndCountAll(
     {
       attributes: ["rating"],
@@ -77,14 +77,24 @@ export const getHostRating = async (hostId) => {
   return rating;
 };
 
-export const postComment = async (comment) => {
+const postComment = async (comment) => {
   const newComment = await Comment.create(comment);
   return newComment;
 };
 
-export const updateComment = async (comment) => {
+const updateComment = async (comment) => {
   const newComment = await Comment.update(comment, {
     where: { id: comment.id },
   });
   return newComment;
 };
+
+module.exports = {
+  getComments,
+  getHomeComments,
+  getHostComments,
+  getUserComments,
+  getHostRating,
+  postComment,
+  updateComment
+}

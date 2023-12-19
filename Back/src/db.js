@@ -15,15 +15,13 @@ const modelDefiners = [];
 
 // Leemos todos los archivos de la carpeta Models, los requerimos y agregamos al arreglo modelDefiners
 fs.readdirSync(path.join(__dirname, "/models"))
-.filter(
-    file => 
-    file.indexOf(".") !== 0 
-    && file !== basename 
-    && file.slice(-3) === ".js"
-)
-.forEach(file => {
-    modelDefiners.push(require(path.join(__dirname, "/models", file)))
-});
+  .filter(
+    (file) =>
+      file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
+  )
+  .forEach((file) => {
+    modelDefiners.push(require(path.join(__dirname, "/models", file)));
+  });
 
 // Injectamos la conexion (sequelize) a todos los modelos
 modelDefiners.forEach((model) => model(sequelize));
@@ -37,36 +35,28 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const {
-  Admin,
-  Comment,
-  Home,
-  Reservation,
-  User
-} = sequelize.models;
+const { Admin, Comment, Home, Reservation, User } = sequelize.models;
 
 // Aca vendrian las relaciones
-User.hasMany(Home, {as: "homes"});
+User.hasMany(Home, { as: "homes" });
 Home.belongsTo(User);
 
-User.hasMany(Reservation, {as: "reservations"});
+User.hasMany(Reservation, { as: "reservations" });
 Reservation.belongsTo(User);
 
-User.hasMany(Comment, {as: "comments"});
+User.hasMany(Comment, { as: "comments" });
 Comment.belongsTo(User);
 
-Home.hasMany(Comment, {as: "comments"});
+Home.hasMany(Comment, { as: "comments" });
 Comment.belongsTo(Home);
 
-Reservation.hasOne(Home);
-Home.belongsToMany(Reservation, {as: "reservations"});
+Home.hasMany(Reservation);
+Reservation.belongsTo(Home);
 
 Reservation.hasOne(Comment);
 Comment.belongsTo(Reservation);
 
-
-
 module.exports = {
-    ...sequelize.models, // Para poder importar los modelos
-    dbConnection: sequelize //Para poder importar la conexion a la db
-}
+  ...sequelize.models, // Para poder importar los modelos
+  dbConnection: sequelize, //Para poder importar la conexion a la db
+};

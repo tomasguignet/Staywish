@@ -4,8 +4,8 @@ const {
   getUsers,
   getUser,
   getUserByMail,
-  createUser,
   updateUser,
+  postUser,
 } = require("../controllers/userController");
 
 const router = Router();
@@ -69,7 +69,7 @@ router.post("/", async (req, res) => {
     for (const property in user) {
       if (!user[property]) throw new Error("Missing data");
     }
-    const newUser = await createUser(user);
+    const newUser = await postUser(user);
 
     res.status(200).send(newUser);
   } catch (error) {
@@ -90,3 +90,5 @@ router.put("/", async (req, res) => {
     res.status(400).send(error.message);
   }
 });
+
+module.exports = router;

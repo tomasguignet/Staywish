@@ -32,9 +32,11 @@ module.exports = (sequelize) => {
     },
     totalCost: {
       type: DataTypes.DECIMAL(10, 2),
+      allowNull: false
     },
     paymentMethod: {
       type: DataTypes.ENUM("Credit and Debit Card", "PayPal", "Google Pay"),
+      allowNull: false
     },
     state: {
       type: DataTypes.ENUM("Active", "Inactive", "Pendant"),
